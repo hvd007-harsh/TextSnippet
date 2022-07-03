@@ -1,0 +1,42 @@
+{
+    "name": "text snippit",
+    "description": "This is text snippet which is used and control by the Schortcut",
+    "version": "2.0",
+    "manifest_version": 3,
+    "author":"Harsh Dixit ",
+    "background": {
+        "service_worker":"main.js"
+      },
+    "permissions": ["declarativeContent","storage","contextMenus","notifications","activeTab","tabs","scripting"],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon":{
+            "16":"/images/3721901.png",
+            "32": "/images/3721901.png",
+            "48": "/images/3721901.png",
+            "128": "/images/3721901.png"
+        }
+    },
+    "content_scripts": [
+        {
+          "matches": ["<all_urls>"],
+          "css": ["button.css"],
+          "js": ["jquery.min.js","popup.js"]
+        }
+      ],
+    "icons":{
+        "16":"/images/3721901.png",
+        "32": "/images/3721901.png",
+        "48": "/images/3721901.png",
+        "128": "/images/3721901.png"
+    },
+    "commands": {
+        "save" : {
+            "suggested_key": {
+                 "default": "Alt+S" 
+            },
+            "description": "Save a link",
+            "global":true
+        }
+    }
+}
