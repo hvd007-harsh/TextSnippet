@@ -3,7 +3,6 @@
     "description": "This is text snippet which is used and control by the Schortcut",
     "version": "2.0",
     "manifest_version": 3,
-    "author":"Harsh Dixit ",
     "background": {
         "service_worker":"main.js"
       },
