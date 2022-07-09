@@ -1,6 +1,8 @@
 $(function(){
   let arr = [];
+  
     chrome.storage.sync.get(['arr'], function(result) {
+    chrome.storage.sync.get(['url'],(data)=>{
       console.log(result.arr);
         arr = result.arr;
         $.map(arr,(e,i)=>{
@@ -8,8 +10,18 @@ $(function(){
           let y = `<p id="para${i}">${e}</p>
           <button class="btn" id="${i}">Delete</button>`;
           $('#para').html(y + x);
-     })
+        })
+        url = data.url;
+        $.map(arr,(e,i)=>{
+          var blob = new Blob([e+url], { type: 'text/plain' });
+          let textFile = window.URL.createObjectURL(blob);
+          let window2 = window.open(textFile, 'log.' + new Date() + '.txt');
+          window2.onload = e => window.URL.revokeObjectURL(textFile);
+        })
+
+      })
     });
+
     async function getCurrentTabUrl () {
       const tabs = await chrome.tabs.query({ active: true })
       let url = tabs[0].url;
@@ -31,7 +43,7 @@ $(function(){
       chrome.storage.sync.set({'arr':['']}, function() {
         console.log('Value is set ');
       })
- 
+    
       chrome.storage.sync.get(['arr'], function(result) {
        console.log(result.arr);
         $('#para').text(result.arr[0]);
@@ -59,5 +71,6 @@ $(function(){
     //   console.log(result.btn);
     // })
     getCurrentTabUrl();
+
 }) 
 
